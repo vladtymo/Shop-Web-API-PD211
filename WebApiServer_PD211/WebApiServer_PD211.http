@@ -1,0 +1,6 @@
+@WebApiServer_PD211_HostAddress = http://localhost:5187
+
+GET {{WebApiServer_PD211_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

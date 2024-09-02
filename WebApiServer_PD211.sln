@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiServer_PD211", "WebApiServer_PD211\WebApiServer_PD211.csproj", "{2EDF5008-746D-41AE-B978-9B266CF30DE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{0DB527AD-80B0-487B-9820-243EA7BF8937}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EDF5008-746D-41AE-B978-9B266CF30DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EDF5008-746D-41AE-B978-9B266CF30DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EDF5008-746D-41AE-B978-9B266CF30DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EDF5008-746D-41AE-B978-9B266CF30DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DB527AD-80B0-487B-9820-243EA7BF8937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DB527AD-80B0-487B-9820-243EA7BF8937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DB527AD-80B0-487B-9820-243EA7BF8937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DB527AD-80B0-487B-9820-243EA7BF8937}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B49C1807-E712-449C-BA19-73DC8EF26478}
+	EndGlobalSection
+EndGlobal
