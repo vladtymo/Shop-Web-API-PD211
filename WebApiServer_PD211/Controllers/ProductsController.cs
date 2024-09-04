@@ -1,4 +1,7 @@
-﻿using Data;
+﻿using AutoMapper;
+using Core.Dtos;
+using Core.Models;
+using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +13,19 @@ namespace WebApiServer_PD211.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ShopDbContext ctx;
+        private readonly IMapper mapper;
 
-        public ProductsController(ShopDbContext ctx)
+        public ProductsController(ShopDbContext ctx, IMapper mapper)
         {
             this.ctx = ctx;
+            this.mapper = mapper;
         }
 
         [HttpGet("all")]
         public IActionResult GetAll()
         {
-            return Ok(ctx.Products.ToList());
+            var items = mapper.Map<List<ProductDto>>(ctx.Products.ToList());
+            return Ok(items);
         }
 
         [HttpGet]
@@ -28,15 +34,18 @@ namespace WebApiServer_PD211.Controllers
             var product = ctx.Products.Find(id);
             if (product == null) return NotFound();
 
-            return Ok(product);
+            // load product category
+            ctx.Entry(product).Reference(x => x.Category).Load();
+
+            return Ok(mapper.Map<ProductDto>(product));
         }
 
         [HttpPost]
-        public IActionResult Create(Product model)
+        public IActionResult Create(CreateProductModel model)
         {
            if (!ModelState.IsValid) return BadRequest();
 
-           ctx.Products.Add(model);
+           ctx.Products.Add(mapper.Map<Product>(model));
            ctx.SaveChanges();
 
             return Ok();
