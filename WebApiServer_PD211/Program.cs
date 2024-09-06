@@ -1,4 +1,6 @@
+using Core.Interfaces;
 using Core.MapperProfiles;
+using Core.Services;
 using Data;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -22,6 +24,8 @@ builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connectionS
 
 // --------------- configure Auto Mapper
 builder.Services.AddAutoMapper(typeof(AppProfile));
+
+builder.Services.AddScoped<IProductsService, ProductsService>();
 
 var app = builder.Build();
 

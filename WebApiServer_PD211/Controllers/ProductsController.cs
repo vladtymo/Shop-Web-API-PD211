@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Core.Dtos;
-using Core.Models;
+using Core.Interfaces;
 using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Http;
@@ -12,65 +12,43 @@ namespace WebApiServer_PD211.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ShopDbContext ctx;
-        private readonly IMapper mapper;
+        private readonly IProductsService productsService;
 
-        public ProductsController(ShopDbContext ctx, IMapper mapper)
+        public ProductsController(IProductsService productsService)
         {
-            this.ctx = ctx;
-            this.mapper = mapper;
+            this.productsService = productsService;
         }
 
         [HttpGet("all")]
         public IActionResult GetAll()
         {
-            var items = mapper.Map<List<ProductDto>>(ctx.Products.ToList());
-            return Ok(items);
+            return Ok(productsService.GetAll());
         }
 
         [HttpGet]
         public IActionResult Get(int id)
         {
-            var product = ctx.Products.Find(id);
-            if (product == null) return NotFound();
-
-            // load product category
-            ctx.Entry(product).Reference(x => x.Category).Load();
-
-            return Ok(mapper.Map<ProductDto>(product));
+            return Ok(productsService.Get(id));
         }
 
         [HttpPost]
-        public IActionResult Create(CreateProductModel model)
+        public IActionResult Create(CreateProductDto model)
         {
-           if (!ModelState.IsValid) return BadRequest();
-
-           ctx.Products.Add(mapper.Map<Product>(model));
-           ctx.SaveChanges();
-
+            productsService.Create(model);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult Edit(Product model)
+        public IActionResult Edit(EditProductDto model)
         {
-            if (!ModelState.IsValid) return BadRequest();
-
-            ctx.Products.Update(model);
-            ctx.SaveChanges();
-
+            productsService.Edit(model);
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var product = ctx.Products.Find(id);
-            if (product == null) return NotFound();
-
-            ctx.Products.Remove(product);
-            ctx.SaveChanges();
-
+            productsService.Delete(id);
             return Ok();
         }
     }

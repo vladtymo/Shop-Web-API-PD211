@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core.Dtos;
-using Core.Models;
 using Data.Entities;
 
 namespace Core.MapperProfiles
@@ -9,8 +8,9 @@ namespace Core.MapperProfiles
     {
         public AppProfile()
         {
-            CreateMap<CreateProductModel, Product>();
+            CreateMap<CreateProductDto, Product>();
             CreateMap<ProductDto, Product>().ReverseMap();
+            CreateMap<EditProductDto, Product>();
         }
     }
 }
