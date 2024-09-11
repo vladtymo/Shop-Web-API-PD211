@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Core.Exceptions;
+using System.Globalization;
 
 namespace WebApiServer_PD211.Middlewares
 {
@@ -17,6 +18,11 @@ namespace WebApiServer_PD211.Middlewares
             {
                 // Call the next delegate/middleware in the pipeline.
                 await _next(context);
+            }
+            catch (HttpException ex)
+            {
+                context.Response.StatusCode = (int)ex.StatusCode;
+                await context.Response.WriteAsJsonAsync(new { ex.Message, Status = (int)ex.StatusCode });
             }
             catch (Exception ex)
             {
