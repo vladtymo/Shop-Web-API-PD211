@@ -2,8 +2,11 @@ using Core.Interfaces;
 using Core.MapperProfiles;
 using Core.Services;
 using Data;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using WebApiServer_PD211.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("LocalDb")!;
@@ -22,6 +25,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connectionString));
 
+// --------------- configure Fluent Validators
+builder.Services.AddFluentValidationAutoValidation();
+// enable client-side validation
+builder.Services.AddFluentValidationClientsideAdapters();
+// Load an assembly reference rather than using a marker type.
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
 // --------------- configure Auto Mapper
 builder.Services.AddAutoMapper(typeof(AppProfile));
 
@@ -36,6 +46,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -43,3 +55,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+    

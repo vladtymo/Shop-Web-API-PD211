@@ -33,7 +33,7 @@ namespace Core.Services
         public void Delete(int id)
         {
             var product = ctx.Products.Find(id);
-            if (product == null) return;
+            if (product == null) throw new Exception($"Product with id: {id} not found.");
 
             ctx.Products.Remove(product);
             ctx.SaveChanges();
@@ -50,7 +50,7 @@ namespace Core.Services
         public ProductDto? Get(int id)
         {
             var product = ctx.Products.Find(id);
-            if (product == null) return null;
+            if (product == null) throw new Exception($"Product with id: {id} not found.");
 
             // load product category
             ctx.Entry(product).Reference(x => x.Category).Load();
