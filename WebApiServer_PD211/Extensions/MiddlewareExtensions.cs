@@ -4,7 +4,7 @@ namespace WebApiServer_PD211.Extensions
 {
     public static class MiddlewareExtensions
     {
-        public static void UseExceptionHandler(this WebApplication app)
+        public static void UseGlobalExceptionHandler(this WebApplication app)
         {
             app.UseMiddleware<ErrorHandlerMiddleware>();
         }

@@ -7,6 +7,9 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using WebApiServer_PD211.Middlewares;
+using Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using WebApiServer_PD211.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("LocalDb")!;
@@ -24,6 +27,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connectionString));
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<ShopDbContext>();
 
 // --------------- configure Fluent Validators
 builder.Services.AddFluentValidationAutoValidation();
@@ -36,6 +43,7 @@ builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssembli
 builder.Services.AddAutoMapper(typeof(AppProfile));
 
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<IAccountsService, AccountsService>();
 
 var app = builder.Build();
 
@@ -46,7 +54,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseExceptionHandler();
+app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
 
