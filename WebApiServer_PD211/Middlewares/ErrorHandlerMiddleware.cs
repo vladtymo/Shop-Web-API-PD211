@@ -1,4 +1,5 @@
 ﻿using Core.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
 namespace WebApiServer_PD211.Middlewares
@@ -21,14 +22,23 @@ namespace WebApiServer_PD211.Middlewares
             }
             catch (HttpException ex)
             {
-                context.Response.StatusCode = (int)ex.StatusCode;
-                await context.Response.WriteAsJsonAsync(new { ex.Message, Status = (int)ex.StatusCode });
+                SendResponse(context, ex.Message, (int)ex.StatusCode);
             }
             catch (Exception ex)
             {
-                context.Response.StatusCode = 404;
-                await context.Response.WriteAsJsonAsync(new { ex.Message, Status = 404 });
+                SendResponse(context, ex.Message);
             }
+        }
+
+        private async void SendResponse(HttpContext context, string msg, int code = 500)
+        {
+            context.Response.StatusCode = code;
+            await context.Response.WriteAsJsonAsync(new ProblemDetails 
+            { 
+                Title = "Error",
+                Detail = msg, 
+                Status = code 
+            });
         }
     }
 }

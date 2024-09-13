@@ -35,7 +35,8 @@ namespace Core.Services
         public void Delete(int id)
         {
             var product = ctx.Products.Find(id);
-            if (product == null) throw new HttpException($"Product with id: {id} not found.", HttpStatusCode.NotFound);
+            if (product == null) 
+                throw new HttpException($"Product with id: {id} not found.", HttpStatusCode.NotFound);
 
             ctx.Products.Remove(product);
             ctx.SaveChanges();
@@ -52,7 +53,8 @@ namespace Core.Services
         public ProductDto? Get(int id)
         {
             var product = ctx.Products.Find(id);
-            if (product == null) throw new HttpException($"Product with id: {id} not found.", HttpStatusCode.NotFound);
+            if (product == null) 
+                throw new HttpException($"Product with id: {id} not found.", HttpStatusCode.NotFound);
 
             // load product category
             ctx.Entry(product).Reference(x => x.Category).Load();
