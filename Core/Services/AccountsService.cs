@@ -1,4 +1,5 @@
-﻿using Core.Dtos;
+﻿using AutoMapper;
+using Core.Dtos;
 using Core.Exceptions;
 using Core.Interfaces;
 using Data.Entities;
@@ -15,21 +16,24 @@ namespace Core.Services
     public class AccountsService : IAccountsService
     {
         private readonly UserManager<User> userManager;
+        private readonly IMapper mapper;
 
-        public AccountsService(UserManager<User> userManager)
+        public AccountsService(UserManager<User> userManager, IMapper mapper)
         {
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
         public async Task Register(RegisterDto model)
         {
-            var user = new User()
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                Birthdate = model.Birthdate,
-                PhoneNumber = model.PhoneNumber
-            };
+            //var user = new User()
+            //{
+            //    UserName = model.Email,
+            //    Email = model.Email,
+            //    Birthdate = model.Birthdate,
+            //    PhoneNumber = model.PhoneNumber
+            //};
+            var user = mapper.Map<User>(model);
 
             var result = await userManager.CreateAsync(user, model.Password);
 
