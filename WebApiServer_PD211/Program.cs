@@ -44,6 +44,7 @@ builder.Services.AddAutoMapper(typeof(AppProfile));
 
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<IAccountsService, AccountsService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 var app = builder.Build();
 

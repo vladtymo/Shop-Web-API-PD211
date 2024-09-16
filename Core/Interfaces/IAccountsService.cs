@@ -2,9 +2,10 @@
 
 namespace Core.Interfaces
 {
+    // interface vs class
     public interface IAccountsService
     {
-        Task Login(LoginDto model);
+        Task<LoginResponse> Login(LoginDto model);
         Task Register(RegisterDto model);
         Task Logout();
     }

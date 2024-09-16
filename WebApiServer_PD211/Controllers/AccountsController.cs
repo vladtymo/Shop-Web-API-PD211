@@ -25,9 +25,9 @@ namespace WebApiServer_PD211.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto model)
+        public async Task<IActionResult> Login(LoginDto model)
         {
-            return Ok();
+            return Ok(await accountsService.Login(model));
         }
 
         [HttpPost("logout")]
