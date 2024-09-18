@@ -10,6 +10,8 @@ using WebApiServer_PD211.Middlewares;
 using Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using WebApiServer_PD211.Extensions;
+using Microsoft.Extensions.Configuration;
+using Core;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("LocalDb")!;
@@ -45,6 +47,9 @@ builder.Services.AddAutoMapper(typeof(AppProfile));
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<IAccountsService, AccountsService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+builder.Services.AddSingleton(_ =>
+              builder.Configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>()!);
 
 var app = builder.Build();
 
