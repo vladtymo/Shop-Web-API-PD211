@@ -3,6 +3,8 @@ using Core.Dtos;
 using Core.Interfaces;
 using Data;
 using Data.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +21,7 @@ namespace WebApiServer_PD211.Controllers
             this.productsService = productsService;
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("all")]
         public IActionResult GetAll()
         {
