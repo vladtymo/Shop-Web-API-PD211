@@ -113,6 +113,13 @@ app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
 
+app.UseCors(cfg =>
+{
+    cfg.AllowAnyHeader();
+    cfg.AllowAnyMethod();
+    cfg.AllowAnyOrigin();
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
