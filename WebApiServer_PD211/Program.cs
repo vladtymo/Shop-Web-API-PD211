@@ -18,7 +18,7 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-string connectionString = builder.Configuration.GetConnectionString("LocalDb")!;
+string connectionString = builder.Configuration.GetConnectionString("RemoteDb")!;
 
 // Add services to the container.
 
@@ -99,6 +99,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+await app.ApplyMigrations();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
