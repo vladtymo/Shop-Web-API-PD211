@@ -21,7 +21,7 @@ namespace WebApiServer_PD211.Controllers
             this.productsService = productsService;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("all")]
         public IActionResult GetAll()
         {
