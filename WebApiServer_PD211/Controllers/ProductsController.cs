@@ -28,7 +28,7 @@ namespace WebApiServer_PD211.Controllers
             return Ok(productsService.GetAll());
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             return Ok(productsService.Get(id));
@@ -48,7 +48,7 @@ namespace WebApiServer_PD211.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             productsService.Delete(id);
