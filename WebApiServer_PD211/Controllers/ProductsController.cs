@@ -27,6 +27,12 @@ namespace WebApiServer_PD211.Controllers
         {
             return Ok(productsService.GetAll());
         }
+        
+        [HttpGet("categories")]
+        public IActionResult GetCategories()
+        {
+            return Ok(productsService.GetCategories());
+        }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)

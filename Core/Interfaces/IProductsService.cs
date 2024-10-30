@@ -9,6 +9,7 @@ namespace Core.Interfaces
 {
     public interface IProductsService
     {
+        IEnumerable<CategoryDto> GetCategories();
         void Delete(int id);
         void Create(CreateProductDto model);
         void Edit(EditProductDto model);

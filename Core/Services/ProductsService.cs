@@ -25,6 +25,11 @@ namespace Core.Services
             this.mapper = mapper;
         }
 
+        public IEnumerable<CategoryDto> GetCategories()
+        {
+            return mapper.Map<IEnumerable<CategoryDto>>(ctx.Categories.ToList());
+        }
+        
         public void Create(CreateProductDto model)
         {
             // TODO: validate
