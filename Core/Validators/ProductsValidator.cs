@@ -22,7 +22,7 @@ namespace Core.Validators
             RuleFor(x => x.Quantity)
                .GreaterThanOrEqualTo(0);
             RuleFor(x => x.Description)
-                .MaximumLength(100);
+                .MaximumLength(5000);
             RuleFor(x => x.CategoryId)
                 .GreaterThan(0).WithMessage("Category is required.");
         }
