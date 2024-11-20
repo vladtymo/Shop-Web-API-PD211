@@ -18,11 +18,13 @@ namespace Core.Services
     {
         private readonly ShopDbContext ctx;
         private readonly IMapper mapper;
+        private readonly IFileService fileService;
 
-        public ProductsService(ShopDbContext ctx, IMapper mapper)
+        public ProductsService(ShopDbContext ctx, IMapper mapper, IFileService fileService)
         {
             this.ctx = ctx;
             this.mapper = mapper;
+            this.fileService = fileService;
         }
 
         public IEnumerable<CategoryDto> GetCategories()
@@ -30,12 +32,16 @@ namespace Core.Services
             return mapper.Map<IEnumerable<CategoryDto>>(ctx.Categories.ToList());
         }
         
-        public void Create(CreateProductDto model)
+        public async Task Create(CreateProductDto model)
         {
             // TODO: validate
+            Product entity = mapper.Map<Product>(model);
+            
+            if (model.Image != null)
+                entity.ImageUrl = await fileService.SaveFile(model.Image);
 
-            ctx.Products.Add(mapper.Map<Product>(model));
-            ctx.SaveChanges();
+            ctx.Products.Add(entity);
+            await ctx.SaveChangesAsync();
         }
 
         public void Delete(int id)

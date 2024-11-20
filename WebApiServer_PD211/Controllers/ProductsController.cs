@@ -41,9 +41,9 @@ namespace WebApiServer_PD211.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateProductDto model)
+        public async Task<IActionResult> Create(CreateProductDto model)
         {
-            productsService.Create(model);
+            await productsService.Create(model);
             return Ok();
         }
 

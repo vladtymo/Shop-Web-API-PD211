@@ -11,7 +11,7 @@ namespace Core.Interfaces
     {
         IEnumerable<CategoryDto> GetCategories();
         void Delete(int id);
-        void Create(CreateProductDto model);
+        Task Create(CreateProductDto model);
         void Edit(EditProductDto model);
         ProductDto? Get(int id);
         IEnumerable<ProductDto> GetAll();

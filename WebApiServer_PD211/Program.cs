@@ -51,6 +51,7 @@ builder.Services.AddAutoMapper(typeof(AppProfile));
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<IAccountsService, AccountsService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IFileService, AzureFileService>();
 
 builder.Services.AddSingleton(_ =>
               builder.Configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>()!);
